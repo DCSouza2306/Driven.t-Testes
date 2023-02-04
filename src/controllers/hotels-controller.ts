@@ -21,6 +21,7 @@ export async function getHotelsById(req: AuthenticatedRequest, res: Response) {
     const hotel = await hotelService.getHotelById(userId, parseInt(hotelId));
     res.status(httpStatus.OK).send(hotel)
   } catch (e) {
-    res.sendStatus(httpStatus.NOT_FOUND);
+    if(e.name == "NotFoundError") return res.sendStatus(httpStatus.NOT_FOUND)
+    if(e.name == "PaymentRequired") return res.sendStatus(httpStatus.PAYMENT_REQUIRED)
   }
 }
