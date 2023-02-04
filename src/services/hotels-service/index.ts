@@ -21,14 +21,19 @@ export async function getHotelById(userId: number, hotelId: number) {
 
 async function userAndTicketValidation(userId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
-  if (!enrollment) throw notFoundError();
+  if (!enrollment) {
+    throw notFoundError();
+  }
 
   const ticket = await ticketRepository.findTicketByEnrollmentId(enrollment.id);
-  if (!ticket) throw notFoundError();
+  if (!ticket) {
+    throw notFoundError();
+  }
   const ticketType = ticket.TicketType;
 
-  if (ticketType.includesHotel == false || ticketType.isRemote == true || ticket.status == 'RESERVED')
+  if (ticketType.includesHotel == false || ticketType.isRemote == true || ticket.status == 'RESERVED') {
     throw paymentRequired();
+  }
 }
 const hotelService = {
   getAllHotels,
