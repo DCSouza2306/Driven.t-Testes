@@ -10,6 +10,15 @@ export async function getAllHotels(userId: number) {
   return hotels;
 }
 
+export async function getHotelById(userId: number, hotelId: number) {
+  await userAndTicketValidation(userId);
+
+  const hotel = await hotelRepository.getHotelById(hotelId);
+  if (!hotel) throw notFoundError();
+
+  return hotel;
+}
+
 async function userAndTicketValidation(userId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
   if (!enrollment) throw notFoundError();
@@ -23,6 +32,7 @@ async function userAndTicketValidation(userId: number) {
 }
 const hotelService = {
   getAllHotels,
+  getHotelById,
 };
 
 export default hotelService;
