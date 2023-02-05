@@ -113,7 +113,7 @@ describe('GET /hotels', () => {
   });
 });
 
-describe('/GET /hotels/:hotelId', () => {
+describe('GET /hotels/:hotelId', () => {
   it('should respond with status 401 if no token is given', async () => {
     const response = await server.get('/hotels/1');
 
