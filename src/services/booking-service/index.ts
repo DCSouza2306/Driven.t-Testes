@@ -33,7 +33,7 @@ async function updateBooking(roomId: number, bookingId: number, userId: number) 
   }
 
   const booking = await bookingRepository.update(bookingId, roomId);
-  return {bookingId: booking.id}
+  return { bookingId: booking.id };
 }
 
 async function validateEnrollmentAndTicket(userId: number) {
