@@ -38,6 +38,11 @@ export async function updateBooking(req: AuthenticatedRequest, res: Response) {
     const booking = await bookingService.updateBooking(roomId, parseInt(bookingId), userId);
     res.status(httpStatus.OK).send(booking);
   } catch (e) {
-    res.sendStatus(httpStatus.NOT_FOUND);
+    if (e.name == 'ForbidenError') {
+      return res.sendStatus(httpStatus.FORBIDDEN);
+    }
+    if (e.name == 'NotFoundError') {
+      return res.sendStatus(httpStatus.NOT_FOUND);
+    }
   }
 }
